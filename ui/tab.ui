@@ -6,396 +6,445 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>951</width>
-    <height>740</height>
+    <width>879</width>
+    <height>645</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>935</width>
-    <height>640</height>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
    <string/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>40</y>
-      <width>811</width>
-      <height>621</height>
+      <x>30</x>
+      <y>0</y>
+      <width>809</width>
+      <height>579</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0">
-      <widget class="QTabWidget" name="tabWidget">
-       <property name="minimumSize">
-        <size>
-         <width>809</width>
-         <height>579</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>809</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="currentIndex">
-        <number>2</number>
-       </property>
-       <widget class="QWidget" name="tabCategory">
-        <attribute name="title">
-         <string>Categories</string>
-        </attribute>
-        <widget class="QWidget" name="horizontalLayoutWidget">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>40</y>
-           <width>641</width>
-           <height>501</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QTableWidget" name="tblCategory">
-            <column>
-             <property name="text">
-              <string>Category ID</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Category</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
+    <property name="minimumSize">
+     <size>
+      <width>809</width>
+      <height>579</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="currentIndex">
+     <number>2</number>
+    </property>
+    <widget class="QWidget" name="tabCategory">
+     <attribute name="title">
+      <string>Categories</string>
+     </attribute>
+     <widget class="QWidget" name="horizontalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>641</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QTableWidget" name="tblCategory">
+         <column>
+          <property name="text">
+           <string>Category ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Category</string>
+          </property>
+         </column>
         </widget>
-        <widget class="QWidget" name="verticalLayoutWidget">
-         <property name="geometry">
-          <rect>
-           <x>670</x>
-           <y>60</y>
-           <width>121</width>
-           <height>421</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QPushButton" name="btnAdd">
-            <property name="text">
-             <string>Add</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnEdit">
-            <property name="text">
-             <string>Edit</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnDelete">
-            <property name="text">
-             <string>Delete</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="tabExpenses">
-        <attribute name="title">
-         <string>Expenses</string>
-        </attribute>
-        <widget class="QWidget" name="horizontalLayoutWidget_2">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>40</y>
-           <width>641</width>
-           <height>501</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QTableWidget" name="tblExpenses">
-            <column>
-             <property name="text">
-              <string>Expense_ID</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>category ID</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Expense Date</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Expense</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Amount</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Notes</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="verticalLayoutWidget_2">
-         <property name="geometry">
-          <rect>
-           <x>670</x>
-           <y>60</y>
-           <width>121</width>
-           <height>421</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QPushButton" name="btnAddExpense">
-            <property name="text">
-             <string>Add</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnEditExpense">
-            <property name="text">
-             <string>Edit</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnDeleteExpense">
-            <property name="text">
-             <string>Delete</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="tabReports">
-        <attribute name="title">
-         <string>Reports</string>
-        </attribute>
-        <widget class="QWidget" name="horizontalLayoutWidget_3">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>40</y>
-           <width>641</width>
-           <height>501</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QTableWidget" name="tableWidget">
-            <column>
-             <property name="text">
-              <string>Category</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Expense ID</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Category ID</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Expense Date</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Expense</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Total Amount</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Notes</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="verticalLayoutWidget_3">
-         <property name="geometry">
-          <rect>
-           <x>670</x>
-           <y>60</y>
-           <width>121</width>
-           <height>421</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <item>
-           <widget class="QPushButton" name="btnGenerate">
-            <property name="text">
-             <string>Generate</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_3">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_4">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_5">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnExcel">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="horizontalLayoutWidget_4">
-         <property name="geometry">
-          <rect>
-           <x>119</x>
-           <y>0</y>
-           <width>431</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QLabel" name="lblFrom">
-            <property name="text">
-             <string>FROM</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDateTimeEdit" name="dateFrom"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="lblTo">
-            <property name="text">
-             <string>  TO</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDateTimeEdit" name="dateTo"/>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QLineEdit" name="txtTotal">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>540</y>
-           <width>461</width>
-           <height>41</height>
-          </rect>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>60</y>
+        <width>121</width>
+        <height>421</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="btnAdd">
+         <property name="text">
+          <string>Add</string>
          </property>
         </widget>
-       </widget>
-      </widget>
-     </item>
-    </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnEdit">
+         <property name="text">
+          <string>Edit</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnDelete">
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabExpenses">
+     <attribute name="title">
+      <string>Expenses</string>
+     </attribute>
+     <widget class="QWidget" name="horizontalLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>641</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QTableWidget" name="tblExpenses">
+         <column>
+          <property name="text">
+           <string>Expense_ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>category ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Expense Date</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Expense</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Amount</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Notes</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>60</y>
+        <width>121</width>
+        <height>421</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QPushButton" name="btnAddExpense">
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnEditExpense">
+         <property name="text">
+          <string>Edit</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnDeleteExpense">
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabReports">
+     <attribute name="title">
+      <string>Reports</string>
+     </attribute>
+     <widget class="QWidget" name="horizontalLayoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>641</width>
+        <height>461</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QTableWidget" name="tableWidget">
+         <column>
+          <property name="text">
+           <string>Category</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Expense ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Category ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Expense Date</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Expense</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Total Amount</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Notes</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>50</y>
+        <width>141</width>
+        <height>471</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QPushButton" name="btnGenerate">
+         <property name="text">
+          <string>Generate</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnGenerateByDate">
+         <property name="text">
+          <string>GenerateByDate</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMonthlyExpense">
+         <property name="text">
+          <string>MonthExpense</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnExcel">
+         <property name="text">
+          <string>Generate Excel </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_4">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>554</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="lblFrom">
+         <property name="text">
+          <string>FROM YEAR</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="txtFromYear"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblFromMonth">
+         <property name="text">
+          <string>MONTH</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="txtFromMonth"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblFromDay">
+         <property name="text">
+          <string>DAY</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="txtFromDay"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblTo">
+         <property name="text">
+          <string>  TO YEAR</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="txtToYear"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblToMonth">
+         <property name="text">
+          <string>MONTH</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="txtToMonth"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblToDay">
+         <property name="text">
+          <string>DAY</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="txtToDay"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLineEdit" name="txtTotal">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>495</y>
+        <width>461</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -403,7 +452,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>951</width>
+     <width>879</width>
      <height>22</height>
     </rect>
    </property>
