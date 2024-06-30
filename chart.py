@@ -39,9 +39,10 @@ class Ui_Dialog(object):
         chart.setAxisX(axisX, series)
         chart.setAxisY(axisY, series)
 
-        QTimer.singleShot(1000, lambda: self.save_chart_as_image(Dialog))
+        # 保存图像并显示对话框
+        self.save_chart_as_image()
 
-    def save_chart_as_image(self, Dialog):
+    def save_chart_as_image(self):
         # Capture the chart view as a QPixmap
         pixmap = self.chartView.grab()
 
@@ -51,9 +52,6 @@ class Ui_Dialog(object):
         # Save the QImage to a file
         image.save("chart.png")
 
-        # Close the dialog after saving the image
-        Dialog.close()
-
 def create_and_save_chart(data_dict):
     app = QApplication.instance()  # Use existing QApplication instance if available
     if app is None:
@@ -62,9 +60,9 @@ def create_and_save_chart(data_dict):
     ui = Ui_Dialog()
     ui.setupUi(Dialog, data_dict)
 
-    # 显示窗口
+    # 显示窗口并保持可见
     Dialog.show()
-    Dialog.exec_()  # Use exec_() to keep the dialog modal
+    app.exec_()
 
 if __name__ == "__main__":
     # 示例数据字典

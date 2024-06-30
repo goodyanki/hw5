@@ -28,13 +28,13 @@ from chart import create_and_save_chart
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1597, 646)
+        MainWindow.resize(845, 638)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(1597, 646))
+        MainWindow.setMinimumSize(QtCore.QSize(0, 0))
         MainWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
         MainWindow.setWindowTitle("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -228,12 +228,9 @@ class Ui_MainWindow(object):
         self.txtTotal.setText("")
         self.txtTotal.setObjectName("txtTotal")
         self.tabWidget.addTab(self.tabReports, "")
-        self.chartGraph = QtWidgets.QGraphicsView(self.centralwidget)
-        self.chartGraph.setGeometry(QtCore.QRect(870, 20, 701, 561))
-        self.chartGraph.setObjectName("chartGraph")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1597, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 845, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -1041,7 +1038,7 @@ class Ui_MainWindow(object):
 
         Dialog.exec_()
 
-        self.load_image("chart.png")
+        #self.load_image("chart.png")
 
 
 
@@ -1049,7 +1046,7 @@ class Ui_MainWindow(object):
 
 
 
-
+    '''
     def load_image(self, image_path):
         scene = QtWidgets.QGraphicsScene()
 
@@ -1057,7 +1054,7 @@ class Ui_MainWindow(object):
 
         scene.addItem(pixmap_item)
         self.chartGraph.setScene(scene)
-
+    '''
 
     def fetchData(self):
         row_count = self.tableWidget.rowCount()
