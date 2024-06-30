@@ -579,6 +579,11 @@ class Ui_MainWindow(object):
 
 
     def queryGenerateByDate(self):
+
+        if self.txtFromMonth.text() != "" and int(self.txtFromMonth.text()) > 12:
+            QMessageBox.warning(None, "INPUT ERROR", "Month must be between 1 and 12.")
+            return
+
         date_from_year = int(self.txtFromYear.text())
         date_from_month = int(self.txtFromMonth.text())
         if self.txtFromDay.text() == "":  # If the day is empty, set it to 1
@@ -744,6 +749,7 @@ class Ui_MainWindow(object):
         values_2 = [maxID, self.txtFromYear.text(), self.txtToYear.text()]
         cursor.execute(query_2, values_2)
         results_2 = cursor.fetchall()
+        print(results_2)
 
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setHorizontalHeaderLabels(
