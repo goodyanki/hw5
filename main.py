@@ -158,14 +158,14 @@ class Ui_MainWindow(object):
         self.btnMonthlyExpense.setObjectName("btnMonthlyExpense")
         self.verticalLayout_3.addWidget(self.btnMonthlyExpense)
         self.btnYearlyExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
-        self.btnYearlyExpense.setObjectName("pushButton_3")
+        self.btnYearlyExpense.setObjectName("btnYearlyExpense")
         self.verticalLayout_3.addWidget(self.btnYearlyExpense)
         self.btnQuarterExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
-        self.btnQuarterExpense.setObjectName("pushButton_4")
+        self.btnQuarterExpense.setObjectName("btnQuarterExpense")
         self.verticalLayout_3.addWidget(self.btnQuarterExpense)
-        self.pushButton_5 = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.verticalLayout_3.addWidget(self.pushButton_5)
+        self.btnFindMostCategoryID = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
+        self.btnFindMostCategoryID.setObjectName("btnFindMostCategoryID")
+        self.verticalLayout_3.addWidget(self.btnFindMostCategoryID)
         self.btnExcel = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
         self.btnExcel.setObjectName("btnExcel")
         self.verticalLayout_3.addWidget(self.btnExcel)
@@ -278,7 +278,7 @@ class Ui_MainWindow(object):
         self.btnMonthlyExpense.setText(_translate("MainWindow", "MonthExpense"))
         self.btnYearlyExpense.setText(_translate("MainWindow", "YearExpense"))
         self.btnQuarterExpense.setText(_translate("MainWindow", "QuarterExpense"))
-        self.pushButton_5.setText(_translate("MainWindow", "PushButton"))
+        self.btnFindMostCategoryID.setText(_translate("MainWindow", "MostCategoryID"))
         self.btnExcel.setText(_translate("MainWindow", "Generate Excel "))
         self.lblFrom.setText(_translate("MainWindow", "FROM YEAR"))
         self.lblFromMonth.setText(_translate("MainWindow", "MONTH"))
@@ -624,12 +624,12 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderLabels(
             ['Expense ID', 'Category ID', 'Expense Date', 'Expense', 'Amount', 'Notes'])
 
-        self.tableWidget.setRowCount(0)  # Clear the table first
+        self.tableWidget.setRowCount(0)
 
         for rowIndex, row in enumerate(results):
             self.tableWidget.insertRow(rowIndex)
             for colIndex, item in enumerate(row):
-                if isinstance(item, datetime):  # Proper formatting for datetime objects
+                if isinstance(item, datetime):
                     item = item.strftime('%Y-%m-%d %H:%M:%S')
                 self.tableWidget.setItem(rowIndex, colIndex, QtWidgets.QTableWidgetItem(str(item)))
 
@@ -713,14 +713,58 @@ class Ui_MainWindow(object):
         self.txtToYear.setText(str(date_from_year))
         self.queryGenerateByDate()
 
+    def queryFindMostCategoryID(self):
+        cursor = self.cnx.cursor()
+        query = (
+            "SELECT category_ID, COUNT(*) AS cnt "
+            "FROM expenses "
+            "WHERE YEAR(expense_date) BETWEEN %s AND %s "
+            "GROUP BY category_ID "
+            "ORDER BY cnt DESC "
+            "LIMIT 1;"  # 添加LIMIT 1来确保只返回最多的category_ID
+        )
 
+        values = [self.txtFromYear.text(), self.txtToYear.text()]
+        cursor.execute(query, values)
+        results = cursor.fetchall()
 
+        if not results:
+            self.txtTotal.setText("No data found")
+            return
 
+        maxID = results[0][0]
 
+        query_2 = (
+            "SELECT * "
+            "FROM expenses "
+            "WHERE category_ID = %s AND YEAR(expense_date) BETWEEN %s AND %s "
+            "ORDER BY expense_date;"
+        )
 
+        values_2 = [maxID, self.txtFromYear.text(), self.txtToYear.text()]
+        cursor.execute(query_2, values_2)
+        results_2 = cursor.fetchall()
 
+        self.tableWidget.setColumnCount(6)
+        self.tableWidget.setHorizontalHeaderLabels(
+            ['Expense ID', 'Category ID', 'Expense Date', 'Expense', 'Amount', 'Notes'])
 
-##############################    DATA REPORT END    #######################################
+        self.tableWidget.setRowCount(0)
+
+        for rowIndex, row in enumerate(results_2):
+            self.tableWidget.insertRow(rowIndex)
+            for colIndex, item in enumerate(row):
+                if isinstance(item, datetime):
+                    item = item.strftime('%Y-%m-%d %H:%M:%S')
+                self.tableWidget.setItem(rowIndex, colIndex, QtWidgets.QTableWidgetItem(str(item)))
+
+        self.tableWidget.resizeColumnsToContents()
+
+        total_sum = sum(row[4] for row in results_2)
+        self.txtTotal.setText(str(total_sum))
+        cursor.close()
+
+    ##############################    DATA REPORT END    #######################################
 
 
 ########################################################################
@@ -890,6 +934,7 @@ class Ui_MainWindow(object):
         self.btnMonthlyExpense.clicked.connect(self.btnMonthlyExpense_clicked)
         self.btnYearlyExpense.clicked.connect(self.btnYearlyExpense_clicked)
         self.btnQuarterExpense.clicked.connect(self.btnWeeklyExpense_clicked)
+        self.btnFindMostCategoryID.clicked.connect(self.btnFindMostCategoryID_clicked)
 
     def btnGenerate_clicked(self):
 
@@ -907,6 +952,9 @@ class Ui_MainWindow(object):
 
     def btnWeeklyExpense_clicked(self):
         self.queryQuaterExpense()
+
+    def btnFindMostCategoryID_clicked(self):
+        self.queryFindMostCategoryID()
 
 
 ########################################################################
