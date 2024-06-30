@@ -681,29 +681,7 @@ class Ui_MainWindow(object):
         self.txtToYear.setText(str(date_from_year))
         self.txtToMonth.setText("12")
         self.txtToDay.setText("31")
-        '''
-        date_to_day = 0
-        if date_from_month in (1, 3, 5, 7, 8, 10, 12):
-            date_to_day = 31
-        elif date_from_month in (4, 6, 9, 11):
-            date_to_day = 30
-        elif date_from_month == 2:
-            if date_from_year % 4 == 0:
-                if date_from_year % 100 == 0:
-                    if date_from_year % 400 == 0:
-                        date_to_day = 29  # Divisible by 400, leap year
-                    else:
-                        date_to_day = 28  # Divisible by 100, but not 400, not a leap year
-                else:
-                    date_to_day = 29  # Divisible by 4 but not 100, leap year
-            else:
-                date_to_day = 28  # Not divisible by 4, not a leap year
 
-        print(date_to_day)
-        date_to_day = str(date_to_day)
-
-        self.txtToDay.setText(date_to_day)
-        '''
         self.queryGenerateByDate()
 
 
