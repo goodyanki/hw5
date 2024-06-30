@@ -157,12 +157,12 @@ class Ui_MainWindow(object):
         self.btnMonthlyExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
         self.btnMonthlyExpense.setObjectName("btnMonthlyExpense")
         self.verticalLayout_3.addWidget(self.btnMonthlyExpense)
-        self.pushButton_3 = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.verticalLayout_3.addWidget(self.pushButton_3)
-        self.pushButton_4 = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.verticalLayout_3.addWidget(self.pushButton_4)
+        self.btnYearlyExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
+        self.btnYearlyExpense.setObjectName("pushButton_3")
+        self.verticalLayout_3.addWidget(self.btnYearlyExpense)
+        self.btnQuarterExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
+        self.btnQuarterExpense.setObjectName("pushButton_4")
+        self.verticalLayout_3.addWidget(self.btnQuarterExpense)
         self.pushButton_5 = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
         self.pushButton_5.setObjectName("pushButton_5")
         self.verticalLayout_3.addWidget(self.pushButton_5)
@@ -276,8 +276,8 @@ class Ui_MainWindow(object):
         self.btnGenerate.setText(_translate("MainWindow", "Generate"))
         self.btnGenerateByDate.setText(_translate("MainWindow", "GenerateByDate"))
         self.btnMonthlyExpense.setText(_translate("MainWindow", "MonthExpense"))
-        self.pushButton_3.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_4.setText(_translate("MainWindow", "PushButton"))
+        self.btnYearlyExpense.setText(_translate("MainWindow", "YearExpense"))
+        self.btnQuarterExpense.setText(_translate("MainWindow", "QuarterExpense"))
         self.pushButton_5.setText(_translate("MainWindow", "PushButton"))
         self.btnExcel.setText(_translate("MainWindow", "Generate Excel "))
         self.lblFrom.setText(_translate("MainWindow", "FROM YEAR"))
@@ -657,6 +657,40 @@ class Ui_MainWindow(object):
             if date_from_year % 4 == 0:
                 if date_from_year % 100 == 0:
                     if date_from_year % 400 == 0:
+                        date_to_day = 29
+                    else:
+                        date_to_day = 28
+                else:
+                    date_to_day = 29
+            else:
+                date_to_day = 28  
+
+        print(date_to_day)
+        date_to_day = str(date_to_day)
+
+        self.txtToDay.setText(date_to_day)
+
+        self.queryGenerateByDate()
+    def queryYearlyExpense(self):
+        date_from_year = int(self.txtFromYear.text())
+
+        self.txtFromMonth.setText("1")
+        self.txtFromDay.setText("1")
+        date_from_month = 1
+        date_from_day = 1
+        self.txtToYear.setText(str(date_from_year))
+        self.txtToMonth.setText("12")
+        self.txtToDay.setText("31")
+        '''
+        date_to_day = 0
+        if date_from_month in (1, 3, 5, 7, 8, 10, 12):
+            date_to_day = 31
+        elif date_from_month in (4, 6, 9, 11):
+            date_to_day = 30
+        elif date_from_month == 2:
+            if date_from_year % 4 == 0:
+                if date_from_year % 100 == 0:
+                    if date_from_year % 400 == 0:
                         date_to_day = 29  # Divisible by 400, leap year
                     else:
                         date_to_day = 28  # Divisible by 100, but not 400, not a leap year
@@ -669,11 +703,37 @@ class Ui_MainWindow(object):
         date_to_day = str(date_to_day)
 
         self.txtToDay.setText(date_to_day)
-
+        '''
         self.queryGenerateByDate()
-    def queryYearlyExpense(self):
-        pass
 
+
+    def queryQuaterExpense(self):
+        date_from_year = int(self.txtFromYear.text())
+        date_from_month = int(self.txtFromMonth.text())
+
+        if date_from_month in (1, 2, 3):
+            self.txtFromMonth.setText("1")
+            self.txtFromDay.setText("1")
+            self.txtToMonth.setText("3")
+            self.txtToDay.setText("31")
+        elif date_from_month in (4, 5, 6):
+            self.txtFromMonth.setText("4")
+            self.txtFromDay.setText("1")
+            self.txtToMonth.setText("6")
+            self.txtToDay.setText("30")
+        elif date_from_month in (7, 8, 9):
+            self.txtFromMonth.setText("7")
+            self.txtFromDay.setText("1")
+            self.txtToMonth.setText("9")
+            self.txtToDay.setText("30")
+        elif date_from_month in (10, 11, 12):
+            self.txtFromMonth.setText("10")
+            self.txtFromDay.setText("1")
+            self.txtToMonth.setText("12")
+            self.txtToDay.setText("31")
+
+        self.txtToYear.setText(str(date_from_year))
+        self.queryGenerateByDate()
 
 
 
@@ -850,6 +910,8 @@ class Ui_MainWindow(object):
         self.btnGenerateByDate.clicked.connect(self.btnGenerateByDate_clicked)
         self.btnExcel.clicked.connect(self.btnExcel_clicked)
         self.btnMonthlyExpense.clicked.connect(self.btnMonthlyExpense_clicked)
+        self.btnYearlyExpense.clicked.connect(self.btnYearlyExpense_clicked)
+        self.btnQuarterExpense.clicked.connect(self.btnWeeklyExpense_clicked)
 
     def btnGenerate_clicked(self):
 
@@ -861,6 +923,12 @@ class Ui_MainWindow(object):
 
     def btnMonthlyExpense_clicked(self):
         self.queryMonthlyExpense()
+
+    def btnYearlyExpense_clicked(self):
+        self.queryYearlyExpense()
+
+    def btnWeeklyExpense_clicked(self):
+        self.queryQuaterExpense()
 
 
 ########################################################################
