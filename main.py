@@ -584,6 +584,11 @@ class Ui_MainWindow(object):
             QMessageBox.warning(None, "INPUT ERROR", "Month must be between 1 and 12.")
             return
 
+        if self.txtFromYear.text() == "" or self.txtFromMonth.text() == "" or self.txtFromDay.text() == "" or self.txtToYear.text() == "" or self.txtToMonth.text() == "" or self.txtToDay.text() == "":
+            QMessageBox.warning(None, "INPUT ERROR", "Please enter all values.")
+            return
+
+
         date_from_year = int(self.txtFromYear.text())
         date_from_month = int(self.txtFromMonth.text())
         if self.txtFromDay.text() == "":  # If the day is empty, set it to 1
