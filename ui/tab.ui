@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>879</width>
-    <height>645</height>
+    <width>1597</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>0</height>
+    <width>1597</width>
+    <height>646</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -317,23 +317,23 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="btnYearlyExpense">
          <property name="text">
-          <string>PushButton</string>
+          <string>YearExpense</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="btnQuarterExpense">
          <property name="text">
-          <string>PushButton</string>
+          <string>QuarterExpense</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="btnFindMostCategoryID">
          <property name="text">
-          <string>PushButton</string>
+          <string>MostCategory</string>
          </property>
         </widget>
        </item>
@@ -341,6 +341,13 @@
         <widget class="QPushButton" name="btnExcel">
          <property name="text">
           <string>Generate Excel </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnGenerateAndImport">
+         <property name="text">
+          <string>Generate&amp;&amp;Import</string>
          </property>
         </widget>
        </item>
@@ -446,18 +453,39 @@
      </widget>
     </widget>
    </widget>
+   <widget class="QGraphicsView" name="chartGraph">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>20</y>
+      <width>701</width>
+      <height>561</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>879</width>
+     <width>1597</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
  </widget>
  <resources/>
  <connections/>
