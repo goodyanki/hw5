@@ -38,7 +38,7 @@ class Ui_Dialog(object):
 
         self.save_chart_as_image()
 
-    def save_chart_as_image(self):
+    def save_chart_as_image(self):    #source : https://blog.csdn.net/guo763199198/article/details/114011995
         pixmap = self.chartView.grab()
 
         image = pixmap.toImage()
