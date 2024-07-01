@@ -227,6 +227,7 @@ class Ui_MainWindow(object):
         self.txtTotal.setGeometry(QtCore.QRect(100, 495, 461, 61))
         self.txtTotal.setText("")
         self.txtTotal.setObjectName("txtTotal")
+        self.txtTotal.setReadOnly(True)
         self.tabWidget.addTab(self.tabReports, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)

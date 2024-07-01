@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QVBoxLayout
 from PyQt5.QtChart import QChartView, QChart, QBarSet, QBarSeries, QValueAxis, QBarCategoryAxis
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QPainter
 from PyQt5.QtCore import QTimer
 
 class Ui_Dialog(object):
@@ -36,7 +36,11 @@ class Ui_Dialog(object):
         chart.setAxisX(axisX, series)
         chart.setAxisY(axisY, series)
 
-        self.save_chart_as_image()
+       # self.save_chart_as_image()
+       # self.chartView = QChartView(chart)
+        self.chartView.setRenderHint(QPainter.Antialiasing)
+        self.chartView.setFixedSize(800, 600)
+        self.chartView.show()
 
     def save_chart_as_image(self):    #source : https://blog.csdn.net/guo763199198/article/details/114011995
         pixmap = self.chartView.grab()
