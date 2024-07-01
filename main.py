@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import math
+import time
 
 # Form implementation generated from reading ui file 'tab.ui'
 #
@@ -9,19 +11,24 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtChart import QLineSeries, QChartView, QChart, QValueAxis
+from PyQt5.QtCore import QSize
 from openpyxl.workbook import Workbook
 
 import category
+import chart
 import expense
 import mysql.connector
-from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
+from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QGraphicsScene
 from datetime import datetime
+from PyQt5.QtGui import QPixmap
+from chart import create_and_save_chart
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(879, 645)
+        MainWindow.resize(845, 638)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -106,7 +113,7 @@ class Ui_MainWindow(object):
         self.btnAddExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
         self.btnAddExpense.setObjectName("btnAddExpense")
         self.verticalLayout_2.addWidget(self.btnAddExpense)
-        self.btnEditExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_2) 
+        self.btnEditExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
         self.btnEditExpense.setObjectName("btnEditExpense")
         self.verticalLayout_2.addWidget(self.btnEditExpense)
         self.btnDeleteExpense = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
@@ -169,6 +176,9 @@ class Ui_MainWindow(object):
         self.btnExcel = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
         self.btnExcel.setObjectName("btnExcel")
         self.verticalLayout_3.addWidget(self.btnExcel)
+        self.btnGenerateAndImport = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
+        self.btnGenerateAndImport.setObjectName("btnGenerateAndImport")
+        self.verticalLayout_3.addWidget(self.btnGenerateAndImport)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem2)
         self.horizontalLayoutWidget_4 = QtWidgets.QWidget(self.tabReports)
@@ -220,12 +230,15 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tabReports, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 879, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 845, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.toolBar = QtWidgets.QToolBar(MainWindow)
+        self.toolBar.setObjectName("toolBar")
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
 
 
         self.initialSetup()
@@ -278,8 +291,9 @@ class Ui_MainWindow(object):
         self.btnMonthlyExpense.setText(_translate("MainWindow", "MonthExpense"))
         self.btnYearlyExpense.setText(_translate("MainWindow", "YearExpense"))
         self.btnQuarterExpense.setText(_translate("MainWindow", "QuarterExpense"))
-        self.btnFindMostCategoryID.setText(_translate("MainWindow", "MostCategoryID"))
+        self.btnFindMostCategoryID.setText(_translate("MainWindow", "MostCategory"))
         self.btnExcel.setText(_translate("MainWindow", "Generate Excel "))
+        self.btnGenerateAndImport.setText(_translate("MainWindow", "Generate&&Import"))
         self.lblFrom.setText(_translate("MainWindow", "FROM YEAR"))
         self.lblFromMonth.setText(_translate("MainWindow", "MONTH"))
         self.lblFromDay.setText(_translate("MainWindow", "DAY"))
@@ -287,6 +301,7 @@ class Ui_MainWindow(object):
         self.lblToMonth.setText(_translate("MainWindow", "MONTH"))
         self.lblToDay.setText(_translate("MainWindow", "DAY"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabReports), _translate("MainWindow", "Reports"))
+        self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
 
 ###################  END UI GENERATION #######################
     def initialSetup(self):
@@ -294,6 +309,7 @@ class Ui_MainWindow(object):
         self.setupCategoryEvents()
         self.setupExpenseEvents()
         self.setupReportEvents()
+        self.setupChartEvents()
 
 
 
@@ -574,20 +590,11 @@ class Ui_MainWindow(object):
         for row in results:
             sum = sum + row[5]
 
-        self.txtTotal.setText(str(sum))
-        cursor.close()
+        formatted_sum = "{:,.2f}".format(sum)
+        self.txtTotal.setText(formatted_sum)
 
 
     def queryGenerateByDate(self):
-
-        if self.txtFromMonth.text() != "" and int(self.txtFromMonth.text()) > 12:
-            QMessageBox.warning(None, "INPUT ERROR", "Month must be between 1 and 12.")
-            return
-
-        if self.txtFromYear.text() == "" or self.txtFromMonth.text() == "" or self.txtFromDay.text() == "" or self.txtToYear.text() == "" or self.txtToMonth.text() == "" or self.txtToDay.text() == "":
-            QMessageBox.warning(None, "INPUT ERROR", "Please enter all values.")
-            return
-
 
         date_from_year = int(self.txtFromYear.text())
         date_from_month = int(self.txtFromMonth.text())
@@ -625,11 +632,11 @@ class Ui_MainWindow(object):
         )
         values = [date_from.strftime('%Y-%m-%d'), date_to.strftime('%Y-%m-%d')]
 
-        print(values)
+        #print(values)
         cursor.execute(query, values)
         results = cursor.fetchall()
 
-        print(results)
+        #print(results)
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setHorizontalHeaderLabels(
             ['Expense ID', 'Category ID', 'Expense Date', 'Expense', 'Amount', 'Notes'])
@@ -648,8 +655,15 @@ class Ui_MainWindow(object):
         for row in results:
             sum = sum + row[4]
 
-        self.txtTotal.setText(str(sum))
+        formatted_sum = "{:,.2f}".format(sum)
+        self.txtTotal.setText(formatted_sum)
+
         cursor.close()
+
+
+
+
+
 
     def queryMonthlyExpense(self):
         date_from_year = int(self.txtFromYear.text())
@@ -675,12 +689,14 @@ class Ui_MainWindow(object):
             else:
                 date_to_day = 28  
 
-        print(date_to_day)
+        #print(date_to_day)
         date_to_day = str(date_to_day)
 
         self.txtToDay.setText(date_to_day)
 
         self.queryGenerateByDate()
+
+
     def queryYearlyExpense(self):
         date_from_year = int(self.txtFromYear.text())
 
@@ -754,7 +770,7 @@ class Ui_MainWindow(object):
         values_2 = [maxID, self.txtFromYear.text(), self.txtToYear.text()]
         cursor.execute(query_2, values_2)
         results_2 = cursor.fetchall()
-        print(results_2)
+       # print(results_2)
 
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setHorizontalHeaderLabels(
@@ -953,7 +969,15 @@ class Ui_MainWindow(object):
 
 
     def btnGenerateByDate_clicked(self):
+        if self.txtFromMonth.text() != "" and int(self.txtFromMonth.text()) > 12:
+            QMessageBox.warning(None, "INPUT ERROR", "Month must be between 1 and 12.")
+            return
+
+        if self.btnGenerateByDate.clicked and self.txtFromYear.text() == "" or self.txtFromMonth.text() == "" or self.txtFromDay.text() == "" or self.txtToYear.text() == "" or self.txtToMonth.text() == "" or self.txtToDay.text() == "":
+            QMessageBox.warning(None, "INPUT ERROR", "Please enter all values.")
+            return
         self.queryGenerateByDate()
+
 
     def btnMonthlyExpense_clicked(self):
         self.queryMonthlyExpense()
@@ -992,6 +1016,69 @@ class Ui_MainWindow(object):
 
         workbook.save('expense.xlsx')
         QMessageBox.information(None, "EXPORTED", "Exported Excel file")
+
+
+
+########################################################################
+#                                                                      #
+#                          CHART  Events                               #
+#                                                                      #
+########################################################################
+
+    def setupChartEvents(self):
+        self.btnGenerateAndImport.clicked.connect(self.btnGenerateChart_clicked)
+        self.btnGenerateAndImport.clicked.connect(self.fetchData)
+
+
+    def btnGenerateChart_clicked(self):
+        dic = self.fetchData()
+        Dialog = QtWidgets.QDialog()
+        form = chart.Ui_Dialog()
+        form.setupUi(Dialog, dic)
+
+        Dialog.exec_()
+
+        #self.load_image("chart.png")
+
+
+
+
+
+
+
+    '''
+    def load_image(self, image_path):
+        scene = QtWidgets.QGraphicsScene()
+
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(QtGui.QPixmap(image_path))
+
+        scene.addItem(pixmap_item)
+        self.chartGraph.setScene(scene)
+    '''
+
+    def fetchData(self):
+        row_count = self.tableWidget.rowCount()
+        data = []
+
+        for row in range(row_count):
+            item = self.tableWidget.item(row, 1)
+            if item is not None:
+                    value = float(item.text())
+                    int_value = int(value)
+                    data.append(int_value)
+        dic_store_id = {key: 0 for key in range(1, 11)}
+
+        for number in data:
+            if number in dic_store_id:
+                dic_store_id[number] += 1
+
+        print(dic_store_id)
+
+        return dic_store_id
+
+
+
+
 
 if __name__ == "__main__":
     import sys
